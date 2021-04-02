@@ -32,11 +32,9 @@ public class GroupDAO extends AbstractDAO<Group, Integer> {
         return getList(empty.getClass().getName());
     }
 
-    public Group getByName(String name){
+    public List<Group> getByName(String name){
         Query query = session.createQuery("from groups as g where g.groupName = :paramName", Group.class);
         query.setParameter("paramName", name);
-        query.setFirstResult(0);
-        query.setMaxResults(1);
-        return (Group) query.uniqueResult();
+        return query.list();
     }
 }

@@ -38,7 +38,7 @@ public class Application {
             System.out.println("Group1: " + schedulew.getTeacher().getTeacherName());
 
             GroupDAO groupDAO = new GroupDAO(factory);
-            System.out.println("Group1: " + groupDAO.getByName("ПКо-21").getGroupName());
+            System.out.println("Group1: " + groupDAO.getByName("ПКо-21").size());
             System.out.println("Group1: " + groupDAO.getList().size());
         }
         catch (Exception ex) {
