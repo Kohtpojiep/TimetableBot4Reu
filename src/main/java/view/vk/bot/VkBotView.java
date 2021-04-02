@@ -10,7 +10,7 @@ public class VkBotView implements BotView {
 
     private static Group group;
 
-    private static int chatId;
+    private static int chatid;
 
     private String[][] timetable = MockObject.mock_1;
 
@@ -30,7 +30,7 @@ public class VkBotView implements BotView {
     private static void onTextMessage(Message message) {
         String[] text = message.getText().split(" ");
 
-        chatId = message.authorId();
+        chatid = message.authorId();
 
         if (text[0].equalsIgnoreCase("/getLesson")) {
             view.sendTimetableForSubs(view.timetable);
@@ -40,7 +40,7 @@ public class VkBotView implements BotView {
     @Override
     public void sendTimetableForSubs(String[][] timetable) {
         new Message().from(group)
-                .to(chatId)
+                .to(chatid)
                 .text(timetableToString(timetable))
                 .send();
     }

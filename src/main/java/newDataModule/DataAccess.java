@@ -1,6 +1,6 @@
-package model;
+package newDataModule;
 
-import model.dto.Schedule;
+import data.Schedule;
 
 import java.util.List;
 

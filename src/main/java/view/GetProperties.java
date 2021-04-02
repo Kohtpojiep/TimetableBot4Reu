@@ -10,7 +10,7 @@ public class GetProperties {
 
     private static GetProperties getProperties;
 
-    public static GetProperties getInstance(){
+    public static GetProperties getInstanse(){
         if(getProperties == null)
             getProperties = new GetProperties();
         return getProperties;

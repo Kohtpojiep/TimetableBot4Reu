@@ -1,20 +1,53 @@
 package app;
 
-import model.dto.Schedule;
-import model.parser.Parser;
-import model.parser.ParserOfGroups;
+import data.NewParser;
+import data.ParserPK_21;
+import newDataModule.dao.*;
+import newDataModule.entities.*;
+import org.checkerframework.checker.units.qual.K;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.engine.spi.SessionFactoryDelegatingImpl;
+import spark.Session;
+import view.discord.bot.DiscordBotView;
+import view.telegram.bot.BotViewTelegram;
+import view.vk.bot.VkBotView;
 
-import java.io.IOException;
+import java.util.ArrayList;
 
 public class Application {
 
-    public static void main(String[] args) throws IOException {
-        Parser parser = new ParserOfGroups();
-        Schedule[] schedules = parser.parse("http://www.rea.perm.ru/?page_id=1036&id=Timetable/rasp_2021.02.10", "PKo-31");
+    public static void main(String[] args) {
+       //ParserPK_21 parserPK_21 = new ParserPK_21();
+       // System.out.println(parserPK_21.parse());
 
-        for (Schedule schedule : schedules) {
-            System.out.println(schedule);
+       /* my bullshit
+        NewParser newParser = new NewParser();
+        System.out.println( newParser.getHTML());
+        newParser.getHTML().forEach(System.out::println);
+        */
+        SessionFactory factory = null;
+
+        try {
+            factory = new Configuration().configure().buildSessionFactory();
+
+            ScheduleDAO scheduleDAO = new ScheduleDAO(factory);
+            LessonDAO lessonDAO = new LessonDAO(factory);
+            Lesson schedulew = lessonDAO.read(1);
+            System.out.println("Group1: " + schedulew.getInformation());
+            System.out.println("Group1: " + schedulew.getTeacher().getTeacherName());
+
+            GroupDAO groupDAO = new GroupDAO(factory);
+            System.out.println("Group1: " + groupDAO.getByName("ПКо-21").getGroupName());
+            System.out.println("Group1: " + groupDAO.getList().size());
         }
-
+        catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        finally {
+            if (factory != null) {
+                factory.close();
+            }
+        }
     }
 }
